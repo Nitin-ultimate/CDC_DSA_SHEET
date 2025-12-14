@@ -1,0 +1,31 @@
+1class Solution {
+2    public boolean isPossible(int maxQ, int n, int[] arr){
+3        int store = 0;
+4        for(int i=0; i<arr.length; i++){
+5            if(arr[i]%maxQ == 0) store += arr[i]/maxQ;
+6            else store += arr[i]/maxQ + 1;
+7        }
+8        if(store>n) return false;
+9        else return true;
+10    }
+11    public int minimizedMaximum(int n, int[] arr) {
+12        int m = arr.length;
+13        int max = Integer.MIN_VALUE;
+14        for(int i=0; i<m; i++){
+15            max = Math.max(max,arr[i]);
+16        }
+17        int low = 1, high = max;
+18        int ans =0;
+19        while(low<=high){
+20            int mid = low + (high-low)/2;
+21            if(isPossible(mid, n, arr)==true){
+22                ans = mid;
+23                high = mid-1;
+24            }
+25            else{
+26                low = mid+1;
+27            }
+28        }
+29        return ans;
+30    }
+31}
